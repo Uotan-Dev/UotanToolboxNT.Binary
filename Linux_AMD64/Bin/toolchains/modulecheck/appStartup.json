@@ -1,0 +1,85 @@
+{
+  "title": "JSON schema for app_startup.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "startupTasks",
+    "configEntry"
+  ],
+  "propertyNames": {
+    "enum": [
+      "startupTasks",
+      "configEntry"
+    ]
+  },
+  "properties": {
+    "startupTasks": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "propertyNames": {
+          "enum": [
+            "name",
+            "srcEntry",
+            "dependencies",
+            "excludeFromAutoStart",
+            "runOnThread",
+            "waitOnMainThread"
+          ]
+        },
+        "required": [
+          "name",
+          "srcEntry"
+        ],
+        "properties": {
+          "name": {
+            "description": "Indicates the name of the startup task.",
+            "type": "string",
+            "pattern": "^[a-zA-Z][0-9a-zA-Z_.]+$",
+            "maxLength": 127
+          },
+          "srcEntry": {
+            "description": "Indicates the js code path corresponding to the startup task.",
+            "type": "string",
+            "maxLength": 127
+          },
+          "dependencies": {
+            "description": "Indicates the dependencies of the startup task.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "excludeFromAutoStart": {
+            "description": "Indicates whether the startup task is excluded from automatic start.",
+            "type": "boolean",
+            "default": false
+          },
+          "runOnThread": {
+            "description": "Indicates the running thread of the startup task.",
+            "type": "string",
+            "enum": [
+              "mainThread",
+              "taskPool"
+            ],
+            "default": "mainThread"
+          },
+          "waitOnMainThread": {
+            "description": "Indicates whether the startup task block the main thread.",
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    },
+    "configEntry": {
+      "description": "Indicates the js code path corresponding to the startup config.",
+      "type": "string",
+      "maxLength": 127
+    }
+  }
+}

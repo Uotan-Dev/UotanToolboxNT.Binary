@@ -1,0 +1,96 @@
+{
+  "title": "JSON schema for shortcuts.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "shortcuts"
+  ],
+  "propertyNames": {
+    "enum": [
+      "shortcuts"
+    ]
+  },
+  "properties": {
+    "shortcuts": {
+      "description": "Indicates the shortcut information of the application. The value is an array, in which each element represents a shortcut object.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "propertyNames": {
+          "enum": [
+            "shortcutId",
+            "label",
+            "icon",
+            "wants"
+          ]
+        },
+        "required": [
+          "shortcutId"
+        ],
+        "properties": {
+          "shortcutId": {
+            "description": "Identifies a shortcut. The value is a string with a maximum of 63 bytes.",
+            "type": "string",
+            "maxLength": 63
+          },
+          "label": {
+            "description": "Indicates the label of the shortcut, that is, the text description displayed by the shortcut. The value can be a string or a resource index to description. A string can contain a maximum of 63 bytes. If the value exceeds 63 bytes, use the resource index.",
+            "type": "string",
+            "maxLength": 255,
+            "pattern": "^[$]string:[0-9a-zA-Z_.]+|(?=.*[{])(?=.*[}])[0-9a-zA-Z_.{}]+$"
+          },
+          "icon": {
+            "description": "Indicates the icon of the shortcut. The value is the index to the resource file.",
+            "type": "string",
+            "pattern": "^[$]media:"
+          },
+          "wants": {
+            "description": "Indicates the wants to which the shortcut points. The attribute consists of the targetClass and targetBundle sub-attributes.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "bundleName",
+                  "moduleName",
+                  "abilityName",
+                  "parameters"
+                ]
+              },
+              "properties": {
+                "bundleName": {
+                  "description": "Indicates the application bundle name for the target ability of the shortcut.",
+                  "type": "string"
+                },
+                "moduleName": {
+                  "description": "Indicates the module name for the target ability of the shortcut.",
+                  "type": "string"
+                },
+                "abilityName": {
+                  "description": "Indicates the class name for the target ability of the shortcut.",
+                  "type": "string"
+                },
+                "parameters": {
+                  "description": "Indicates the parameters for the target ability of the shortcut.",
+                  "type": "object",
+                  "maxProperties": 1024,
+                  "propertyNames": {
+                    "pattern": "^[\\x00-\\x7F]+$",
+                    "maxLength": 1024
+                  },
+                  "additionalProperties": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 1024,
+                    "pattern": "^[\\x00-\\x7F]*$"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

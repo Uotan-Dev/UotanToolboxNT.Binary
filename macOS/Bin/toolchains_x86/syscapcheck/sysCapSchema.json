@@ -1,0 +1,109 @@
+{
+  "title": "JSON schema for syscap.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "devices"
+  ],
+  "propertyNames": {
+    "enum": [
+      "devices",
+      "development",
+      "production"
+    ]
+  },
+  "properties": {
+    "devices": {
+      "description": "Basic system capability",
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "general",
+          "custom"
+        ]
+      },
+      "properties": {
+        "general": {
+          "description": "core equipment",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "default",
+              "tv",
+              "tablet",
+              "wearable",
+              "liteWearable",
+              "car",
+              "smartVision",
+              "router"
+            ]
+          }
+        },
+        "custom": {
+          "description": "N equipment",
+          "type":"array",
+          "items": {
+            "maxProperties": 1,
+            "minProperties": 1,
+            "type": "object",
+            "patternProperties": {
+              ".+": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^SystemCapability\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,2}$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "development": {
+      "description": "extra system capability",
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "addedSysCaps"
+        ]
+      },
+      "properties": {
+        "addedSysCaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^SystemCapability\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,2}$"
+          }
+        }
+      }
+    },
+    "production": {
+      "description": "generate RCPID",
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "addedSysCaps",
+          "removedSysCaps"
+        ]
+      },
+      "properties": {
+        "addedSysCaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^SystemCapability\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,2}$"
+          }
+        },
+        "removedSysCaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^SystemCapability\\.[a-zA-Z0-9]+\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+){0,2}$"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "title": "JSON schema for commonEvents.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "commonEvents"
+  ],
+  "propertyNames": {
+    "enum": [
+      "commonEvents"
+    ]
+  },
+  "properties": {
+    "commonEvents": {
+      "description": "This tag and subtag are not supported on lightweight devices.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "events"
+        ],
+        "propertyNames": {
+          "enum": [
+            "name",
+            "permission",
+            "types",
+            "events"
+          ]
+        },
+        "properties": {
+          "name": {
+            "description": "This label indicates the ability name corresponding to the current static public event.",
+            "type": "string",
+            "maxLength": 127
+          },
+          "permission": {
+            "description": "This tag identifies the permission that needs to be applied for to implement the static public event. It is a character string indicating a permission name.",
+            "type": "string",
+            "maxLength": 255
+          },
+          "types": {
+            "description": "This tag is used to configure the category array of the current static public event. It is a string array. Each array element is a category name.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "events": {
+            "description": "This tag identifies a set of event values of intentions that can be received. The value is generally predefined by the system or can be customized.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
