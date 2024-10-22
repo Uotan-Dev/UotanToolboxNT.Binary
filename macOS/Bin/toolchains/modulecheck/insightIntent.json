@@ -1,0 +1,160 @@
+{
+  "title": "JSON schema for insight_intent.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "insightIntents"
+  ],
+  "propertyNames": {
+    "enum": [
+      "insightIntents"
+    ]
+  },
+  "properties": {
+    "insightIntents": {
+      "description": "Indicates the configuration of insightIntents.",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "propertyNames": {
+          "enum": [
+            "intentName",
+            "domain",
+            "intentVersion",
+            "srcEntry",
+            "uiAbility",
+            "serviceExtension",
+            "uiExtension",
+            "form"
+          ]
+        },
+        "required": [
+          "intentName",
+          "domain",
+          "intentVersion",
+          "srcEntry"
+        ],
+        "properties": {
+          "intentName": {
+            "description": "Indicates the name of insightIntent.It's also the intent interface to implement.",
+            "type": "string",
+            "pattern": "^[A-Z][a-zA-Z0-9]+$"
+          },
+          "domain": {
+            "description": "Indicates the domain of insightIntent.",
+            "type": "string"
+          },
+          "intentVersion": {
+            "description": "Indicates the version of insightIntent.",
+            "type": "string",
+            "pattern": "^(\\d+\\.){2}\\d+$"
+          },
+          "srcEntry": {
+            "description": "Indicates the js code path corresponding to the ability.",
+            "type": "string",
+            "maxLength": 127
+          },
+          "uiAbility": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "ability",
+                "executeMode"
+              ]
+            },
+            "required": [
+              "ability",
+              "executeMode"
+            ],
+            "properties": {
+              "ability": {
+                "description": "Indicates the name of the ability.",
+                "type": "string",
+                "pattern": "^[a-zA-Z][0-9a-zA-Z_.]+$",
+                "maxLength": 127
+              },
+              "executeMode": {
+                "type": "array",
+                "items": {
+                    "type":"string",
+                    "enum": [
+                        "background",
+                        "foreground"
+                    ]
+                }
+              }
+            }
+          },
+          "serviceExtension": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "ability"
+              ]
+            },
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "description": "Indicates the name of the ability.",
+                "type": "string",
+                "pattern": "^[a-zA-Z][0-9a-zA-Z_.]+$",
+                "maxLength": 127
+              }
+            }
+          },
+          "uiExtension": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "ability"
+              ]
+            },
+            "required": [
+              "ability"
+            ],
+            "properties": {
+              "ability": {
+                "description": "Indicates the name of the ability.",
+                "type": "string",
+                "pattern": "^[a-zA-Z][0-9a-zA-Z_.]+$",
+                "maxLength": 127
+              }
+            }
+          },
+          "form": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "ability",
+                "formName"
+              ]
+            },
+            "required": [
+              "ability",
+              "formName"
+            ],
+            "properties": {
+              "ability": {
+                "description": "Indicates the name of the ability.",
+                "type": "string",
+                "pattern": "^[a-zA-Z][0-9a-zA-Z_.]+$",
+                "maxLength": 127
+              },
+              "formName": {
+                "description": "Indicates the name of the form class. The tag value is a string of up to 127 bytes. The tag cannot be default.",
+                "type": "string",
+                "maxLength": 127
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

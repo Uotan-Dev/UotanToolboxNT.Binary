@@ -1,0 +1,266 @@
+{
+  "title": "JSON schema for forms.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "forms"
+  ],
+  "propertyNames": {
+    "enum": [
+      "forms"
+    ]
+  },
+  "properties": {
+    "forms": {
+      "description": "This tag identifies the embedded card attribute of the capability. This tag is valid only when formsEnabled is set to true. This tag can be left blank by default.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "uniqueItems": true,
+        "propertyNames": {
+          "enum": [
+            "name",
+            "displayName",
+            "description",
+            "src",
+            "uiSyntax",
+            "isDynamic",
+            "transparencyEnabled",
+            "window",
+            "colorMode",
+            "formConfigAbility",
+            "formVisibleNotify",
+            "isDefault",
+            "updateEnabled",
+            "scheduledUpdateTime",
+            "updateDuration",
+            "defaultDimension",
+            "supportDimensions",
+            "dataProxyEnabled",
+            "metadata",
+            "fontScaleFollowSystem",
+            "supportShapes"
+          ]
+        },
+        "required": [
+          "name",
+          "isDefault",
+          "supportDimensions",
+          "defaultDimension",
+          "updateEnabled"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "uiSyntax": {
+                  "const": "hml"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "isDynamic": {
+                  "const": true
+                },
+                "transparencyEnabled": {
+                  "const": false
+                }
+              }
+            }
+          }
+        ],
+        "properties": {
+          "name": {
+            "description": "Indicates the name of the form class. The tag value is a string of up to 127 bytes. The tag cannot be default.",
+            "type": "string",
+            "maxLength": 127
+          },
+          "displayName" : {
+            "description": "This tag identifies the display name of the form. The tag value can be a string indicating the display name content (a string of up to 30 bytes). This tag can be left blank by default.",
+            "type": "string",
+            "if": {
+              "pattern": "^[$]string:[0-9a-zA-Z_.]+$"
+            },
+            "else": {
+              "minLength": 1,
+              "maxLength": 30
+            }
+          },
+          "description": {
+            "description": "This tag identifies the description of the form. The tag value can be a string indicating the description content (a string of up to 255 bytes. If the length exceeds 255 bytes, use the resource index mode) or the resource index of the description content to support multiple languages. This tag can be left blank by default.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+          },
+          "isDefault": {
+            "description": "Indicates whether the card is the default icon. The value is of the Boolean type. The value true indicates that the card is the default card, and the value false indicates that the card is not the default card. Each capability can have only one default card.",
+            "type": "boolean"
+          },
+          "colorMode": {
+            "description": "This tag identifies the card hue. The value can be auto, dark, or light. dark indicates that the card supports the dark color mode, light indicates that the card does not support the dark color mode, and auto indicates that the card hue is the same as the system hue.",
+            "type": "string",
+            "enum": [
+              "auto",
+              "dark",
+              "light"
+            ],
+            "default": "auto"
+          },
+          "supportDimensions": {
+            "description": "This label identifies the card appearance specification. The value is \"1*2\", \" 2*2\", \"2*4\", \"4*4\", \"1*1\", \"6*4\" and cannot be default. At least one card specification must be specified when defining a card.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "1*2",
+                "2*2",
+                "2*4",
+                "4*4",
+                "1*1",
+                "6*4"
+              ]
+            }
+          },
+          "defaultDimension": {
+            "description": "This label identifies the default appearance specifications of the card.",
+            "type": "string",
+            "uniqueItems": true,
+            "enum": [
+              "1*2",
+              "2*2",
+              "2*4",
+              "4*4",
+              "1*1",
+              "6*4"
+            ]
+          },
+          "updateEnabled": {
+            "description": "Indicates whether the card supports scheduled refresh. The value is of the Boolean type. true indicates that the card supports scheduled vertical refresh, and false indicates that the card does not support scheduled vertical refresh.",
+            "type": "boolean"
+          },
+          "scheduledUpdateTime": {
+            "description": "Indicates the time when a card is refreshed at a fixed time. The value is counted in 24 hours, accurate to minute. This tag can be set to the default value.",
+            "type": "string",
+            "pattern": "^(([0-1][0-9])|([2][0-3]))[:]+([0-5][0-9])$"
+          },
+          "updateDuration": {
+            "description": "This tag identifies the update frequency of the card. The unit is 30 minutes. The value is a multiple of 30. The maximum frequency of a card is refreshed every 30 minutes. You can select either refresh or refresh at a fixed point. If both are configured, the card is refreshed at a scheduled time. This label is an integer.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "dataProxyEnabled": {
+            "description": "Indicates whether the card supports data proxy refresh. The value is of the Boolean type. true indicates that the card supports data proxy refresh, and false indicates that the card does not support data proxy refresh.",
+            "type": "boolean",
+            "default": false
+          },
+          "metadata": {
+            "description": "Indicates the metadata of the form.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "name",
+                  "value",
+                  "resource"
+                ]
+              },
+              "properties": {
+                "name": {
+                  "description": "Indicates the key of a data element. The value is a string with a maximum of 255 bytes.",
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "value": {
+                  "description": "Indicates the value of a data element. The value is a string with a maximum of 255 bytes.",
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "resource": {
+                  "description": "Indicates the resource of a data element.",
+                  "type": "string",
+                  "pattern": "^[$]profile:[0-9a-zA-Z_.]+|(?=.*[{])(?=.*[}])[0-9a-zA-Z_.{}]+$",
+                  "maxLength": 255
+                }
+              }
+            }
+          },
+          "formConfigAbility": {
+            "description": "Indicates the name of the facility or activity for card adjustment.",
+            "type": "string",
+            "maxLength": 127,
+            "pattern": "^ability://(.*)$"
+          },
+          "formVisibleNotify": {
+            "description": "This tag identifies whether the card is allowed to use card visibility notifications.",
+            "type": "boolean",
+            "default": false
+          },
+          "src": {
+            "description": "Indicates the src of form.",
+            "type": "string"
+          },
+          "uiSyntax": {
+            "description": "This tag identifies the ui syntax.",
+            "type": "string",
+            "default": "hml",
+            "enum": [
+              "hml",
+              "arkts"
+            ]
+          },
+          "isDynamic": {
+            "description": "This tag identifies whether the card is isDynamic.",
+            "type": "boolean",
+            "default": true
+          },
+          "transparencyEnabled": {
+            "description": "This tag identifies whether the form can be set as a transparent background",
+            "type": "boolean",
+            "default": false
+          },
+          "fontScaleFollowSystem": {
+            "description": "This tag identifies whether the form font scale can be set with system config",
+            "type": "boolean",
+            "default": true
+          },
+          "window": {
+            "description": "Defines window-related configurations. This attribute is not supported by devices running the OHOS.",
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "designWidth",
+                "autoDesignWidth"
+              ]
+            },
+            "properties": {
+              "designWidth": {
+                "description": "Indicates the baseline width for page design, in pixels. The size of an element is scaled by the actual device width. This label is an integer.",
+                "type": "integer",
+                "minimum": 0
+              },
+              "autoDesignWidth": {
+                "description": "Specifies whether to automatically calculate the baseline width for page design. If it is set to true, the designWidth attribute becomes invalid. The baseline width is calculated based on the device width and screen density.",
+                "type": "boolean"
+              }
+            }
+          },
+          "supportShapes": {
+            "description": "This label identifies the card shape specification. The default value is \"rect\"",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "rect",
+                "circle"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

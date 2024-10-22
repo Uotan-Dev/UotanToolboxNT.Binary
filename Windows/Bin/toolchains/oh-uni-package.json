@@ -1,0 +1,10 @@
+{
+  "apiVersion": "12",
+  "displayName": "Toolchains",
+  "meta": {
+    "metaVersion": "3.0.0"
+  },
+  "path": "toolchains",
+  "releaseType": "Canary2",
+  "version": "5.0.0.31"
+}

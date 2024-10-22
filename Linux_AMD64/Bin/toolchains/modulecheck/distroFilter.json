@@ -1,0 +1,370 @@
+{
+  "title": "JSON schema for pages.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "oneOf": [
+    {
+      "required": [
+        "distroFilter"
+      ]
+    },
+    {
+      "required": [
+        "distributionFilter"
+      ]
+    }
+  ],
+  "propertyNames": {
+    "enum": [
+      "distroFilter",
+      "distributionFilter"
+    ]
+  },
+  "properties": {
+    "distroFilter": {
+      "description": "Indicates the global configuration of an distroFilter.Make precise matching and use in the cloud distribution of th application market.",
+      "type": "object",
+      "deprecationMessage": "Deprecated since api 9, use distributionFilter instead.",
+      "propertyNames": {
+        "enum": [
+          "apiVersion",
+          "screenShape",
+          "screenWindow",
+          "screenDensity",
+          "countryCode"
+        ]
+      },
+      "properties": {
+        "apiVersion": {
+          "description": "Indicates the supported apiVersion range.",
+          "type": "object",
+          "deprecationMessage": "Deprecated since api 9",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "Indicates the rule of black and white list for the subtag.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the subtag.",
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "screenShape": {
+          "description": "Indicates the shape of the screen, only supports for lightWearable devices, other devices are not recommended.",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "Indicates the rule of black and white list for the subtag.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the subtag.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "circle",
+                  "rect"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "screenWindow": {
+          "description": "Indicates the windows's resolution in runtime",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "Indicates the rule of black and white list for the subtag",
+              "type": "string",
+              "enum": [
+                "include"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the subtag",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([1-9][0-9]*)\\*([1-9][0-9]*)$"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "screenDensity": {
+          "description": "This label indicates the pixel density of the screen (dpi: Dots Per Inch). This field is optional. If this field is configured, the value must be valid. The tag value is a string array.",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "The policy tag indicates the list rule of the value of the sublabel. Either exclude or include can be used.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the sublabel.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "sdpi",
+                  "mdpi",
+                  "ldpi",
+                  "xldpi",
+                  "xxldpi",
+                  "xxxldpi"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "countryCode": {
+          "description": "This label indicates the country code to be distributed to the application. The specific value is subject to the ISO-3166 -1 standard. Multiple country and region enumeration definitions are supported. This field is optional. If this field is configured, the value must be valid. The tag value is a string array. The substring indicates the supported country or region and consists of two uppercase letters.",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "The policy tag indicates the list rule of the value of the sublabel. Either exclude or include can be used.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the sublabel.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "distributionFilter": {
+      "description": "Indicates the global configuration of an distribution filter.Make precise matching and use in the cloud distribution of th application market.",
+      "type": "object",
+      "propertyNames": {
+        "enum": [
+          "screenShape",
+          "screenWindow",
+          "screenDensity",
+          "countryCode"
+        ]
+      },
+      "properties": {
+        "screenShape": {
+          "description": "Indicates the shape of the screen, only supports for lightWearable devices, other devices are not recommended.",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "Indicates the rule of black and white list for the subtag.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the subtag.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "circle",
+                  "rect"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "screenWindow": {
+          "description": "Indicates the windows's resolution in runtime",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "Indicates the rule of black and white list for the subtag",
+              "type": "string",
+              "enum": [
+                "include"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the subtag",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^([1-9][0-9]*)\\*([1-9][0-9]*)$"
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "screenDensity": {
+          "description": "This label indicates the pixel density of the screen (dpi: Dots Per Inch). This field is optional. If this field is configured, the value must be valid. The tag value is a string array.",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "The policy tag indicates the list rule of the value of the sublabel. Either exclude or include can be used.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the sublabel.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "sdpi",
+                  "mdpi",
+                  "ldpi",
+                  "xldpi",
+                  "xxldpi",
+                  "xxxldpi"
+                ]
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "countryCode": {
+          "description": "This label indicates the country code to be distributed to the application. The specific value is subject to the ISO-3166 -1 standard. Multiple country and region enumeration definitions are supported. This field is optional. If this field is configured, the value must be valid. The tag value is a string array. The substring indicates the supported country or region and consists of two uppercase letters.",
+          "type": "object",
+          "required": [
+            "policy",
+            "value"
+          ],
+          "propertyNames": {
+            "enum": [
+              "policy",
+              "value"
+            ]
+          },
+          "properties": {
+            "policy": {
+              "description": "The policy tag indicates the list rule of the value of the sublabel. Either exclude or include can be used.",
+              "type": "string",
+              "enum": [
+                "include",
+                "exclude"
+              ]
+            },
+            "value": {
+              "description": "Indicates the value range of the sublabel.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    }
+  }
+}
