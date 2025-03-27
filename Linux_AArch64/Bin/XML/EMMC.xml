@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<data>
+  <program SECTOR_SIZE_IN_BYTES="512" filename="tmp.bin" num_partition_sectors="1" physical_partition_number="0" start_sector="0"/>
+</data>
